@@ -21,6 +21,7 @@ func main() {
 	)
 }
 
+// We can use formatting with Sprintf or Printf
 // Formatting   Description                                Verb
 // 1.234560e+02 Scientific notation                        %e
 // 123.456000   Decimal point, no exponent                 %f
