@@ -5,6 +5,10 @@ import (
 	"time"
 )
 
+func someFunc() time.Weekday {
+	return time.Wednesday
+}
+
 func main() {
 	fmt.Println("When's Saturday?")
 	today := time.Now().Weekday()
@@ -18,7 +22,12 @@ func main() {
 		fmt.Println("Tomorrow.")
 	case today + 2:
 		fmt.Println("In two days.")
+	case someFunc():
+		fmt.Println("In three days.")
 	default:
 		fmt.Println("Too far away.")
 	}
 }
+
+// case someFunc won't be called if any of the previous cases evaluate to true
+// nor will any other cases evaluated, including the default
