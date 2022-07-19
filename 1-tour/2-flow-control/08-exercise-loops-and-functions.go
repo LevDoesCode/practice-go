@@ -8,12 +8,9 @@ import (
 func sqrt(x float64) float64 {
 	z := 1.0
 	r := math.Sqrt(x)
-	reached := false
-	for !reached {
+
+	for math.Abs(z-r) > 0.0000001 {
 		z -= (z*z - x) / (2 * z)
-		if z-r < 0.0000001 {
-			reached = true
-		}
 	}
 	return z
 }
