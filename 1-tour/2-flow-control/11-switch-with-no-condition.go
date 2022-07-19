@@ -16,3 +16,6 @@ func main() {
 		fmt.Println("Good evening.")
 	}
 }
+
+// Same as switch true
+// Cane be used as an if/else chain
