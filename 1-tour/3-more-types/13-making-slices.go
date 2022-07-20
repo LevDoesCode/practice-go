@@ -3,10 +3,12 @@ package main
 import "fmt"
 
 func main() {
-	a := make([]int, 5)
+	a := make([]int, 5) // slice of len 5, cap 5
+	fmt.Println(cap(a))
 	printSlice("a", a)
 
-	b := make([]int, 0, 5)
+	b := make([]int, 0, 7) // slice of len 0, cap 7
+	fmt.Println(cap(b))
 	printSlice("b", b)
 
 	c := b[:2]
