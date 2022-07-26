@@ -35,7 +35,7 @@ func main() {
 }
 
 type myInter interface {
-	sum(a, b int) int
+	sum(a, b int) int // A function with 2 variables and a type returned
 }
 
 type myType struct {
@@ -43,6 +43,8 @@ type myType struct {
 	y float64
 }
 
+// The method must take two variables and return an int in order for the
+// interface to be satisfied
 func (t *myType) sum(a, b int) int {
 	fmt.Printf("X + a: %v \nY + b: %v", t.x+float64(a), t.y+float64(b))
 	return a + b
