@@ -20,8 +20,6 @@ func main() {
 	var m interface{}
 	describe(m)
 
-	// var n *myType
-	// m = n
 	m = myType{1.5, 3.5}
 	fmt.Printf("%v %T\n", m, m)
 	// This throws an error because empty interfaces don't implement any methods
@@ -31,7 +29,8 @@ func main() {
 	n = &myType{3.34, 34.22}
 	describe(n)
 	n.sum(3, 9)
-	//(&m).sum(3, 6)
+	i = n
+	describe(i)
 }
 
 type myInter interface {
@@ -46,7 +45,7 @@ type myType struct {
 // The method must take two variables and return an int in order for the
 // interface to be satisfied
 func (t *myType) sum(a, b int) int {
-	fmt.Printf("X + a: %v \nY + b: %v", t.x+float64(a), t.y+float64(b))
+	fmt.Printf("X + a: %v \nY + b: %v\n", t.x+float64(a), t.y+float64(b))
 	return a + b
 }
 
