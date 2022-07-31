@@ -58,7 +58,6 @@ func main() {
 	pic.ShowImage(newImg)
 }
 
-/////////////////////////////
 // Another solution
 
 // package main
