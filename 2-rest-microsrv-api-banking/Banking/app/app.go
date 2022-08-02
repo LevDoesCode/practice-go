@@ -1,6 +1,7 @@
 package app
 
 import (
+	"fmt"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
@@ -14,14 +15,27 @@ func StartServer() {
 	//}) // replace by a using a function name as parameter
 	// we create a new multiplexer that can be customized instead of the default one
 	//mux := http.NewServeMux()
-	myMux := mux.NewRouter() // mux from gorilla-mux
+	myRouter := mux.NewRouter() // mux from gorilla-mux
 
 	//  define routes
-	myMux.HandleFunc("/greet", greet)
-	myMux.HandleFunc("/customers", getAllCustomers)
+	// .Methods(http.MethodGet) to make explicit it's methods matcher
+	// otherwise it's an http request by default
+	myRouter.HandleFunc("/greet", greet).Methods(http.MethodGet)
+	myRouter.HandleFunc("/customers", getAllCustomers).Methods(http.MethodGet)
+	myRouter.HandleFunc("/customers", createCustomer).Methods(http.MethodPost)
+	myRouter.HandleFunc("/customers/{customer_id:[0-9]+}", getCustomerById).Methods(http.MethodGet)
 	// starting server
-	log.Fatal(http.ListenAndServe("localhost:8080", myMux))
+	log.Fatal(http.ListenAndServe("localhost:8080", myRouter))
 	// ListenAndServe returns an error we can check if there's an error starting the server
 	// http.ListenAndServe("localhost:8080", nil)
 	// we pass a nil handler because we're not creating our own
+}
+
+func getCustomerById(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	fmt.Fprint(w, vars["customer_id"])
+}
+
+func createCustomer(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Post Request received!")
 }
