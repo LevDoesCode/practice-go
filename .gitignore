@@ -16,5 +16,4 @@
 # vendor/
 .idea/
 *.iml
-banking
 mocks/
