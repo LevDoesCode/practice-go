@@ -19,7 +19,6 @@ func main() {
 	// ListenAndServe returns an error we can check if there's an error starting the server
 	// http.ListenAndServe("localhost:8080", nil)
 	// we pass a nil handler because we're not creating our own
-
 }
 
 func greet(w http.ResponseWriter, r *http.Request) {
