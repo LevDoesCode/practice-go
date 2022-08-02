@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"encoding/xml"
+	"fmt"
 	"net/http"
 )
 
@@ -12,6 +13,10 @@ type Customer struct {
 	Name    string `json:"full_name" xml:"full_name"`
 	City    string `json:"city" xml:"city"`
 	ZipCode string `json:"zip_code" xml:"zip_code"`
+}
+
+func greet(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello, world!")
 }
 
 func getAllCustomers(w http.ResponseWriter, r *http.Request) {
