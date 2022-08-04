@@ -22,7 +22,7 @@ func (d CustomerRepositoryDb) FindAll() ([]Customer, error) {
 	customers := make([]Customer, 0)
 	for rows.Next() {
 		var c Customer
-		err := rows.Scan(&c.Id, &c.Name, &c.City, &c.ZipCode, &c.DOB, &c.Status)
+		err := rows.Scan(&c.Id, &c.Name, &c.DOB, &c.City, &c.ZipCode, &c.Status)
 		if err != nil {
 			log.Println("Error while scanning customers: " + err.Error())
 			return nil, err

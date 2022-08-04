@@ -2,7 +2,7 @@ package domain
 
 // Customer is the domain object
 type Customer struct {
-	Id      string
+	Id      string `json:"idee" xml:"idee"`
 	Name    string
 	City    string
 	ZipCode string
