@@ -1,6 +1,7 @@
 package app
 
 import (
+	"Banking/service"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
@@ -19,11 +20,16 @@ func greet(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello, world!")
 }
 
-func getAllCustomers(w http.ResponseWriter, r *http.Request) {
-	customers := []Customer{
-		{Name: "Lev", City: "Lima", ZipCode: "15103"},
-		{Name: "Roger", City: "Springfield", ZipCode: "10001"},
-	}
+type CustomerHandler struct {
+	service service.CustomerService
+}
+
+func (ch *CustomerHandler) getAllCustomers(w http.ResponseWriter, r *http.Request) {
+	//customers := []Customer{
+	//	{Name: "Lev", City: "Lima", ZipCode: "15103"},
+	//	{Name: "Roger", City: "Springfield", ZipCode: "10001"},
+	//}
+	customers, _ := ch.service.GetAllCustomers()
 	// Set the correct response header for the response writer from plain text to json or xml
 	//fmt.Printf("%s\n", r.Header.Get("Content-Type"))
 	if r.Header.Get("Content-Type") == "application/xml" {

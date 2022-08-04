@@ -1,6 +1,8 @@
 package app
 
 import (
+	"Banking/domain"
+	"Banking/service"
 	"fmt"
 	"github.com/gorilla/mux"
 	"log"
@@ -21,7 +23,9 @@ func StartServer() {
 	// .Methods(http.MethodGet) to make explicit it's methods matcher
 	// otherwise it's an http request by default
 	myRouter.HandleFunc("/greet", greet).Methods(http.MethodGet)
-	myRouter.HandleFunc("/customers", getAllCustomers).Methods(http.MethodGet)
+	// wiring
+	ch := CustomerHandler{service: service.NewCustomerService(domain.NewCustomerRepositoryStub())}
+	myRouter.HandleFunc("/customers", ch.getAllCustomers).Methods(http.MethodGet)
 	myRouter.HandleFunc("/customers", createCustomer).Methods(http.MethodPost)
 	myRouter.HandleFunc("/customers/{customer_id:[0-9]+}", getCustomerById).Methods(http.MethodGet)
 	// starting server
