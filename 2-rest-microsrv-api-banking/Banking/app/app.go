@@ -24,7 +24,8 @@ func StartServer() {
 	// otherwise it's an http request by default
 	myRouter.HandleFunc("/greet", greet).Methods(http.MethodGet)
 	// wiring
-	ch := CustomerHandler{service: service.NewCustomerService(domain.NewCustomerRepositoryStub())}
+	//ch := CustomerHandler{service: service.NewCustomerService(domain.NewCustomerRepositoryStub())}
+	ch := CustomerHandler{service: service.NewCustomerService(domain.NewCustomerRepositoryDb())}
 	myRouter.HandleFunc("/customers", ch.getAllCustomers).Methods(http.MethodGet)
 	myRouter.HandleFunc("/customers", createCustomer).Methods(http.MethodPost)
 	myRouter.HandleFunc("/customers/{customer_id:[0-9]+}", getCustomerById).Methods(http.MethodGet)
