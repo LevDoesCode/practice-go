@@ -28,7 +28,8 @@ func StartServer() {
 	ch := CustomerHandler{service: service.NewCustomerService(domain.NewCustomerRepositoryDb())}
 	myRouter.HandleFunc("/customers", ch.getAllCustomers).Methods(http.MethodGet)
 	myRouter.HandleFunc("/customers", createCustomer).Methods(http.MethodPost)
-	myRouter.HandleFunc("/customers/{customer_id:[0-9]+}", getCustomerById).Methods(http.MethodGet)
+	//myRouter.HandleFunc("/customers/{customer_id:[0-9]+}", getCustomerById).Methods(http.MethodGet)
+	myRouter.HandleFunc("/customers/{customer_id:[0-9]+}", ch.getCustomer).Methods(http.MethodGet)
 	// starting server
 	log.Fatal(http.ListenAndServe("localhost:8080", myRouter))
 	// ListenAndServe returns an error we can check if there's an error starting the server
