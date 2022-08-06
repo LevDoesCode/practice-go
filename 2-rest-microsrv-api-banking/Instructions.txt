@@ -1,0 +1,18 @@
+Install Go
+Install Postman
+Install IntelliJ
+	Install Go Plugins in IntelliJ
+Intall DBeaver
+Install XAMPP
+	Run XAMPP Shell
+		Run command "mysql -h localhost -u root -p"
+		Enter current password (empty)
+		In MariaDB, enter query SET PASSWORD FOR 'root'@'localhost' = PASSWORD('newpassword');
+	Click on Config 'config.inc.php'
+		Change ['AllowNoPassword'] = true; to ['AllowNoPassword'] = false;
+	Run Apache
+	Run MySQL
+In DBeaver, create a new connection with the appropriate user (root), pass and port
+In Go, use the format [username[:password]@][protocol[(address)]]/dbname[?param1=value1&...&paramN=valueN]
+username:password@protocol(address)/dbname?param=value
+e.g sql.Open("mysql", "root:pass123@tcp(localhost:3306)/banking")
