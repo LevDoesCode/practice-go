@@ -11,7 +11,7 @@ import (
 
 // By the default, the json response will use the struct definition for the keys
 // If we want to change them we can add the tags in backticks ``
-// We dont need this struct anymore as it's implemented in customer.go now
+// We don't need this struct anymore as it's implemented in customer.go now
 //type Customer struct {
 //	Name    string `json:"full_name" xml:"full_name"`
 //	City    string `json:"city" xml:"city"`
