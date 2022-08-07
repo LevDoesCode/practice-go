@@ -11,11 +11,12 @@ import (
 
 // By the default, the json response will use the struct definition for the keys
 // If we want to change them we can add the tags in backticks ``
-type Customer struct {
-	Name    string `json:"full_name" xml:"full_name"`
-	City    string `json:"city" xml:"city"`
-	ZipCode string `json:"zip_code" xml:"zip_code"`
-}
+// We dont need this struct anymore as it's implemented in customer.go now
+//type Customer struct {
+//	Name    string `json:"full_name" xml:"full_name"`
+//	City    string `json:"city" xml:"city"`
+//	ZipCode string `json:"zip_code" xml:"zip_code"`
+//}
 
 func greet(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello, world!")
@@ -48,10 +49,21 @@ func (ch *CustomerHandler) getCustomer(w http.ResponseWriter, r *http.Request) {
 
 	customer, err := ch.service.GetCustomer(id)
 	if err != nil {
-		w.WriteHeader(err.Code)
-		fmt.Fprintf(w, err.Message)
+		writeResponse(w, err.Code, err.AsMessage())
+		// fmt.Fprintf(w, err.Message) // Plain text message not needed anymore
 	} else {
-		w.Header().Add("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(customer)
+		writeResponse(w, http.StatusOK, customer)
+	}
+}
+
+func writeResponse(w http.ResponseWriter, code int, data interface{}) {
+	// This is the appropriate order to write the responses
+	// w.Header().Add("Content-Type", "application/json")
+	// w.WriteHeader()
+	// json.NewEncoder(w).Encode(err.AsMessage())
+	w.Header().Add("Content-Type", "application/json")
+	w.WriteHeader(code)
+	if err := json.NewEncoder(w).Encode(data); err != nil {
+		panic(err)
 	}
 }
