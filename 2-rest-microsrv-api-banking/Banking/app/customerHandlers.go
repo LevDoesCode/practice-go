@@ -30,7 +30,8 @@ func (ch *CustomerHandler) getAllCustomers(w http.ResponseWriter, r *http.Reques
 	//	{Name: "Lev", City: "Lima", ZipCode: "15103"},
 	//	{Name: "Roger", City: "Springfield", ZipCode: "10001"},
 	//}
-	customers, err := ch.service.GetAllCustomers()
+	status := r.URL.Query().Get("status")
+	customers, err := ch.service.GetAllCustomers(status)
 	if err != nil {
 		writeResponse(w, err.Code, err.AsMessage())
 	} else if r.Header.Get("Content-Type") == "application/json" {
@@ -53,6 +54,12 @@ func (ch *CustomerHandler) getCustomer(w http.ResponseWriter, r *http.Request) {
 	} else {
 		writeResponse(w, http.StatusOK, customer)
 	}
+}
+
+func (ch *CustomerHandler) getCustomerStatus(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	status := vars["status"]
+	fmt.Println(status)
 }
 
 func writeResponse(w http.ResponseWriter, code int, data interface{}) {
