@@ -3,7 +3,6 @@ package app
 import (
 	"Banking/service"
 	"encoding/json"
-	"encoding/xml"
 	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
@@ -31,16 +30,17 @@ func (ch *CustomerHandler) getAllCustomers(w http.ResponseWriter, r *http.Reques
 	//	{Name: "Lev", City: "Lima", ZipCode: "15103"},
 	//	{Name: "Roger", City: "Springfield", ZipCode: "10001"},
 	//}
-	customers, _ := ch.service.GetAllCustomers()
+	customers, err := ch.service.GetAllCustomers()
+	if err != nil {
+		writeResponse(w, err.Code, err.AsMessage())
+	} else if r.Header.Get("Content-Type") == "application/json" {
+		writeResponse(w, http.StatusOK, customers)
+		//w.Header().Add("Content-Type", "application/json")
+		//json.NewEncoder(w).Encode(customers)
+	}
 	// Set the correct response header for the response writer from plain text to json or xml
 	//fmt.Printf("%s\n", r.Header.Get("Content-Type"))
-	if r.Header.Get("Content-Type") == "application/xml" {
-		w.Header().Add("Content-Type", "application/xml")
-		xml.NewEncoder(w).Encode(customers)
-	} else {
-		w.Header().Add("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(customers)
-	}
+
 }
 
 func (ch *CustomerHandler) getCustomer(w http.ResponseWriter, r *http.Request) {
@@ -50,7 +50,6 @@ func (ch *CustomerHandler) getCustomer(w http.ResponseWriter, r *http.Request) {
 	customer, err := ch.service.GetCustomer(id)
 	if err != nil {
 		writeResponse(w, err.Code, err.AsMessage())
-		// fmt.Fprintf(w, err.Message) // Plain text message not needed anymore
 	} else {
 		writeResponse(w, http.StatusOK, customer)
 	}
