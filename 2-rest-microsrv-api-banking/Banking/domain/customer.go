@@ -16,6 +16,6 @@ type Customer struct {
 // All adapters need to conform to this interface
 // as CustomerRepository (port) works as a protocol
 type CustomerRepository interface {
-	FindAll() ([]Customer, error)
+	FindAll() ([]Customer, *errs.AppError)
 	ById(string) (*Customer, *errs.AppError)
 }
