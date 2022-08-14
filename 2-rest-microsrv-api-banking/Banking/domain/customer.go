@@ -4,12 +4,13 @@ import "Banking/errs"
 
 // Customer is the domain object
 type Customer struct {
-	Id      string `json:"idee" xml:"idee"`
-	Name    string
-	City    string
-	ZipCode string
-	DOB     string
-	Status  string
+	//Id      string `json:"idee" xml:"idee"`
+	Id      string `db:"customer_id"`
+	Name    string `db:"name"`
+	DOB     string `db:"dob"`
+	City    string `db:"city"`
+	ZipCode string `db:"zipcode"`
+	Status  string `db:"status"`
 }
 
 // CustomerRepository is the Secondary port that will connect to the server side
