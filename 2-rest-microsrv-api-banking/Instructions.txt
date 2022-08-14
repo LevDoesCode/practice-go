@@ -16,3 +16,7 @@ In DBeaver, create a new connection with the appropriate user (root), pass and p
 In Go, use the format [username[:password]@][protocol[(address)]]/dbname[?param1=value1&...&paramN=valueN]
 username:password@protocol(address)/dbname?param=value
 e.g sql.Open("mysql", "root:pass123@tcp(localhost:3306)/banking")
+Install dependencies at the same location as the go.mod folder
+Install Gorillamux using command go get -u github.com/gorilla/mux
+Install Zap (looger) using command go get -u go.uber.org/zap
+Install SQLx using command go get github.com/jmoiron/sqlx
