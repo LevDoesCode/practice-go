@@ -4,6 +4,8 @@ import (
 	"Banking/errs"
 	"Banking/logger"
 	"database/sql"
+	"fmt"
+	"os"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -74,7 +76,15 @@ func (d CustomerRepositoryDb) ById(id string) (*Customer, *errs.AppError) {
 func NewCustomerRepositoryDb() CustomerRepositoryDb {
 	// mysql driver code from https://github.com/go-sql-driver/mysql
 	//client, err := sql.Open("mysql", "root:pass123@tcp(localhost:3306)/banking")
-	client, err := sqlx.Open("mysql", "root:pass123@tcp(localhost:3306)/banking")
+	dbUser := os.Getenv("DB_USER")
+	dbPass := os.Getenv("DB_PASS")
+	dbAddr := os.Getenv("DB_ADDR")
+	dbPort := os.Getenv("DB_PORT")
+	dbName := os.Getenv("DB_NAME")
+
+	datasource := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPass, dbAddr, dbPort, dbName)
+	// client, err := sqlx.Open("mysql", "root:pass123@tcp(localhost:3306)/banking")
+	client, err := sqlx.Open("mysql", datasource)
 	if err != nil {
 		panic(err)
 	}
